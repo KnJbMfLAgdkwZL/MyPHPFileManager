@@ -1,0 +1,10 @@
+*, html, body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Courier New";
+    font-size: 13px;
+}
+
+body {
+    padding: 20px;
+}

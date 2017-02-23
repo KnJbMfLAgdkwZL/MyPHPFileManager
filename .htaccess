@@ -1,0 +1,8 @@
+﻿Options All -Indexes
+
+DirectoryIndex index.php
+
+<Files "index.php">
+    Order Deny,Allow
+    Allow from all
+</Files>
