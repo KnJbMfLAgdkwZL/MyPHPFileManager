@@ -1,10 +1,13 @@
-<form method="post" action="./index.php">
+<form method="post" action="./index.php" class="form-cur_path">
     <input style="width: 400px" type="text" name="cur_path" id="cur_path" value="<?= $path ?>"/>
     <input type="submit" name="go" id="go" value="go"/>
 </form>
 
 <?php
-$str = '<table cellspacing="0" cellpadding="0" border="1" >';
+$disc = system("wmic logicaldisk get caption");//windows
+print_r($disc);
+
+$str = '<table class="list" cellspacing="0" cellpadding="0" border="1">';
 
 $str .= '<tr>';
 $str .= '<th>Name</th>';
@@ -22,7 +25,7 @@ foreach ($data as $v) {
     $create = '';
     $modify = '';
 
-    $str .= '<tr class="file">';
+    $str .= '<tr class="list-item">';
     $str .= "<td>{$name}</td>";
     $str .= "<td>{$type}</td>";
     $str .= "<td>{$size}</td>";
@@ -35,10 +38,6 @@ foreach ($data as $v) {
 
 $str .= '</table>';
 echo $str;
-
-$str = system("wmic logicaldisk get caption");//windows
-print_r($str);
-
 ?>
 <script src="/main/views/site/index.js"></script>
 <link rel="stylesheet" type="text/css" href="/main/views/site/index.css"/>

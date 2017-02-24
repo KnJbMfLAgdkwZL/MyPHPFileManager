@@ -1,3 +1,15 @@
-tr {
+.form-cur_path {
+    margin: 10px 0px;
+}
+
+.list {
+    margin: 10px 0px;
+}
+
+.list-item {
     cursor: pointer;
+}
+
+.list-item-selected {
+    background-color: lightblue
 }
