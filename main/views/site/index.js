@@ -3,26 +3,42 @@ function List() {
     var item = null;
     var length = null;
     var cur_path = null;
+    var cur_path_focus = false;
     var time = 0;
     var key = {
-        Up: 38,
-        Down: 40,
         Enter: 13,
+        Page_Up: 33,
+        Page_Down: 34,
         End: 35,
-        Home: 36
+        Home: 36,
+        Up: 38,
+        Down: 40
     };
 
     document.addEventListener('DOMContentLoaded', function ready() {
         item = document.getElementsByClassName('list-item');
         length = item.length;
-        cur_path = document.getElementById('cur_path').value;
+
         for (var k in item) {
             item[k].onclick = item_onkeydown;
         }
         document.body.onkeydown = body_onkeydown;
+
+        var cur_path_el = document.getElementById('cur_path');
+        cur_path = cur_path_el.value;
+        cur_path_el.onfocus = function () {
+            cur_path_focus = true;
+        };
+        cur_path_el.onblur = function () {
+            cur_path_focus = false;
+        };
     });
 
     var body_onkeydown = function (e) {
+        if (cur_path_focus) {
+            return cur_path_focus;
+        }
+
         item_reset();
         if (e.keyCode == key.Up) {
             selected--;
@@ -37,7 +53,7 @@ function List() {
             }
         }
         else if (e.keyCode == key.Enter) {
-            var str = item[selected].getElementsByTagName('td')[0].innerHTML;
+            var str = item[selected].getElementsByClassName('list-item-name')[0].innerHTML;
             var next_path = cur_path + "\\" + str;
             post('./index.php', {cur_path: next_path});
         }
@@ -47,7 +63,41 @@ function List() {
         else if (e.keyCode == key.Home) {
             selected = 0;
         }
+        else if (e.keyCode == key.Page_Up) {
+            selected -= 10;
+            if (selected < 0) {
+                selected = 0;
+            }
+        }
+        else if (e.keyCode == key.Page_Down) {
+            selected += 10;
+            if (selected >= length) {
+                selected = length - 1;
+            }
+        }
+        else {
+            item[selected].className += ' list-item-selected';
+            return true;
+        }
         item[selected].className += ' list-item-selected';
+        scrollToElement(item[selected]);
+
+        return false;
+    }
+
+    function scrollToElement(theElement) {
+        if (typeof theElement === "string") {
+            theElement = document.getElementById(theElement);
+        }
+        var selectedPosX = 0;
+        var selectedPosY = 0;
+        while (theElement != null) {
+            selectedPosX += theElement.offsetLeft;
+            selectedPosY += theElement.offsetTop;
+            theElement = theElement.offsetParent;
+        }
+        selectedPosY -= (window.innerHeight / 2 );
+        window.scrollTo(selectedPosX, selectedPosY);
     }
 
     var post = function (path, params, method) {

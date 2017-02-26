@@ -26,13 +26,13 @@ foreach ($data as $v) {
     $modify = '';
 
     $str .= '<tr class="list-item">';
-    $str .= "<td>{$name}</td>";
-    $str .= "<td>{$type}</td>";
-    $str .= "<td>{$size}</td>";
-    $str .= "<td>{$rights}</td>";
-    $str .= "<td>{$date_create}</td>";
-    $str .= "<td>{$date_modify}</td>";
-    $str .= "<td>{$date_open}</td>";
+    $str .= "<td class='list-item-name'>{$name}</td>";
+    $str .= "<td class='list-item-type'>{$type}</td>";
+    $str .= "<td class='list-item-size'>{$size}</td>";
+    $str .= "<td class='list-item-rights'>{$rights}</td>";
+    $str .= "<td class='list-item-date_create'>{$date_create}</td>";
+    $str .= "<td class='list-item-date_modify'>{$date_modify}</td>";
+    $str .= "<td class='list-item-date_open'>{$date_open}</td>";
     $str .= '</tr>';
 }
 
