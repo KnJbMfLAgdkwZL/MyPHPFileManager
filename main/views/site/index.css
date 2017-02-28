@@ -2,8 +2,13 @@
     margin: 10px 0px;
 }
 
+#cur_path {
+    width: 90.123456%;
+}
+
 .list {
     margin: 10px 0px;
+    width: 95.123456%;
 }
 
 .list-item {

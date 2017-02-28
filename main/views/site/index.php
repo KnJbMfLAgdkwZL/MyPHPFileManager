@@ -1,5 +1,5 @@
 <form method="post" action="./index.php" class="form-cur_path">
-    <input style="width: 400px" type="text" name="cur_path" id="cur_path" value="<?= $path ?>"/>
+    <input type="text" name="cur_path" id="cur_path" value="<?= $path ?>"/>
     <input type="submit" name="go" id="go" value="go"/>
 </form>
 

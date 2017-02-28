@@ -2,7 +2,7 @@
 
 class SiteController extends Controller
 {
-    public $allowed = ['index', 'page404', 'paramhandler'];
+    public $allowed = ['index', 'page404'];
 
     public function index()
     {
@@ -10,28 +10,23 @@ class SiteController extends Controller
         if (isset($_POST['cur_path'])) {
             $path = $_POST['cur_path'];
         }
+
+        $path = iconv("UTF-8", "cp1251", $path);
         $path = realpath($path);
 
         $fm = new FileManager();
-        $data = $fm->scan_dir($path);
+        if (is_dir($path)) {
+            $data = $fm->scan_dir($path);
 
-        $this->render('index.php', ['data' => $data, 'path' => $path]);
+            $path = $fm->change_encoding($path);
+            $this->render('index.php', ['data' => $data, 'path' => $path]);
+        } else if (is_file($path)) {
+            echo 'File';
+        }
     }
 
     public function page404()
     {
         $this->render('page404.php');
-    }
-
-    public function paramhandler()
-    {
-        echo 'paramhandler()';
-        echo '<pre>';
-        echo '$_GET', '<br>';
-        print_r($_GET);
-        echo '<br>';
-        echo '$_POST', '<br>';
-        print_r($_POST);
-        echo '</pre>';
     }
 }

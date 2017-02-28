@@ -26,13 +26,17 @@ function List() {
 
         var cur_path_el = document.getElementById('cur_path');
         cur_path = cur_path_el.value;
-        cur_path_el.onfocus = function () {
-            cur_path_focus = true;
-        };
-        cur_path_el.onblur = function () {
-            cur_path_focus = false;
-        };
+        cur_path_el.onfocus = cur_path_el_focus_on;
+        cur_path_el.onblur = cur_path_el_focus_off;
     });
+
+    var cur_path_el_focus_on = function () {
+        cur_path_focus = true;
+    }
+    var cur_path_el_focus_off = function () {
+        cur_path_focus = false;
+    }
+
 
     var body_onkeydown = function (e) {
         if (cur_path_focus) {
