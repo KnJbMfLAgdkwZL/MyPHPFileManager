@@ -24,7 +24,5 @@ function __autoload($class)
     require_once($class . '.php');
 }
 
-$rooth_path = __DIR__;
-
 $application = new Application();
 $application->run();

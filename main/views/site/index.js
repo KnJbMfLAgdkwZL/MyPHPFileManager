@@ -20,7 +20,7 @@ function List() {
         length = item.length;
 
         for (var k in item) {
-            item[k].onclick = item_onkeydown;
+            item[k].onclick = item_onclick;
         }
         document.body.onkeydown = body_onkeydown;
 
@@ -33,10 +33,10 @@ function List() {
     var cur_path_el_focus_on = function () {
         cur_path_focus = true;
     }
+
     var cur_path_el_focus_off = function () {
         cur_path_focus = false;
     }
-
 
     var body_onkeydown = function (e) {
         if (cur_path_focus) {
@@ -129,7 +129,7 @@ function List() {
         }
     }
 
-    var item_onkeydown = function () {
+    var item_onclick = function (e) {
         item_reset();
         this.className += ' list-item-selected';
         var el_num = Array.prototype.indexOf.call(item, this);
@@ -139,7 +139,7 @@ function List() {
         else if (selected == el_num && time + 500 > new Date().getTime()) {
             var str = item[selected].getElementsByTagName('td')[0].innerHTML;
             var next_path = cur_path + "\\" + str;
-            post('./index.php', {cur_path: next_path});
+            post('./index.php', {cur_path: next_path}, 'post');
         }
         time = new Date().getTime();
     }

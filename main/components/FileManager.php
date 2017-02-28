@@ -12,7 +12,6 @@ class FileManager
         $directory = array();
         $files = array();
         $all_files = scandir($path);
-        sort($all_files);
         foreach ($all_files as $f) {
             $item = array();
             $item['name'] = $this->change_encoding($f);
@@ -48,8 +47,6 @@ class FileManager
 
     function get_rights($path)
     {
-        //clearstatcache();
-        //return substr(sprintf('%o', fileperms($path)), -3);
         clearstatcache(null, $path);
         return decoct(fileperms($path) & 0777);
     }
